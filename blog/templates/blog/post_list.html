@@ -1,35 +1,16 @@
+{% extends 'blog/base.html' %}
 {% load markdownify %}
-{% load staticfiles %}
-<html>
-    <head>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-        <title>Nick's Blog</title>
-    </head>
-    <body>
-        <div class="page-header">
-            <h1>
-                <a href="/">Nick's Blog</a>
-            </h1>
+
+{% block content %}
+    {% for post in posts %}
+    <div class="post">
+        <div class="date">
+            <p>published: {{post.published_date }}</p>
         </div>
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
-                    {% for post in posts %}
-                    <div class="post">
-                        <div class="date">
-                            <p>published: {{post.published_date }}</p>
-                        </div>
-                        <h1>
-                            <a href="">{{ post.title }}</a>
-                        </h1>
-                        <p>{{ post.text|markdownify }}</p>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+        <h1>
+            <a href="">{{ post.title }}</a>
+        </h1>
+        <p>{{ post.text|markdownify }}</p>
+    </div>
+    {% endfor %}
+{% endblock %}
